@@ -457,7 +457,7 @@ function kube::common::start_workload_controller_manager {
 }
 
 function kube::common::start_controller_manager {
-    local controller_opts="-nodelifecycle,-nodeipam"
+    local controller_opts="*,-nodelifecycle,-nodeipam"
     if [ "${IS_RESOURCE_PARTITION}" == "true" ]; then
        controller_opts="nodelifecycle,nodeipam"
     fi
@@ -495,7 +495,6 @@ function kube::common::start_controller_manager {
       --feature-gates="${FEATURE_GATES}" \
       "${cloud_config_arg[@]}" \
       --kubeconfig "${kubeconfigfilepaths}" \
-      --use-service-account-credentials \
       --controllers=${controller_opts} \
       --leader-elect=false \
       --cert-dir="${CERT_DIR}" \
